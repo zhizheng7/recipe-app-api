@@ -45,6 +45,7 @@ def create_user(**params):
     """Create and return a new user."""
     return get_user_model().objects.create_user(**params)
 
+
 class PublicRecipeAPITests(TestCase):
     """Test unauthenticated API requests."""
 
@@ -116,10 +117,10 @@ class PrivateRecipeAPITests(TestCase):
 
         self.assertEqual(res.status_code, status.HTTP_201_CREATED)
         recipe = Recipe.objects.get(id=res.data['id'])
-        for k,v in payload.items():
-            self.assertEqual(getattr(recipe,k), v)
+        for k, v in payload.items():
+            self.assertEqual(getattr(recipe, k), v)
         self.assertEqual(recipe.user, self.user)
-    
+
     def test_partial_update(self):
         """Test partial update of a recipe"""
         original_link = 'http://example.com/recipe.pdf'
@@ -138,7 +139,7 @@ class PrivateRecipeAPITests(TestCase):
         self.assertEqual(recipe.title, payload['title'])
         self.assertEqual(recipe.link, original_link)
         self.assertEqual(recipe.user, self.user)
-        
+
     def test_full_update(self):
         """Test full update of recipe."""
         recipe = create_recipe(
