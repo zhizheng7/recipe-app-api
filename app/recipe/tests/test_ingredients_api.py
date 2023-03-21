@@ -16,7 +16,7 @@ from recipe.serializers import IngredientSerializer
 INGREDIENTS_URL = reverse('recipe:ingredient-list')
 
 
-def create_user(email='user@example', password='testpass123'):
+def create_user(email='user@example.com', password='testpass123'):
     """Create and return user"""
     return get_user_model().objects.create_user(email=email, password=password)
 
@@ -65,7 +65,5 @@ class PrivateIngredientsApiTests(TestCase):
 
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         self.assertEqual(len(res.data), 1)
-        # self.assertEqual(res.data.count(), 1)
         self.assertEqual(res.data[0]['name'], ingredient.name)
         self.assertEqual(res.data[0]['id'], ingredient.id)
-        print(f'===IngredientID = {ingredient.id}')
