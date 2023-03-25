@@ -294,7 +294,7 @@ class PrivateRecipeAPITests(TestCase):
         """Test creating a recipe with new ingredits."""
         payload = {
             'title': 'Cauliflower Tacos',
-            'title_minutes': 60,
+            'time_minutes': 60,
             'price': Decimal('4.30'),
             'ingredients': [{'name': 'Cauliflower'}, {'name': 'Salt'}],
         }
@@ -329,7 +329,7 @@ class PrivateRecipeAPITests(TestCase):
         self.assertEqual(recipes.count(), 1)
         recipe = recipes[0]
         self.assertEqual(recipe.ingredients.count(), 2)
-        self.assertEqual(Ingredient.objects.filter(user=self.user), 2)
+        self.assertEqual(Ingredient.objects.filter(user=self.user).count(), 2)
         self.assertIn(ingredient, recipe.ingredients.all())
         for ingredient in payload['ingredients']:
             exists = recipe.ingredients.filter(
